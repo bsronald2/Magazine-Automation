@@ -1,0 +1,12 @@
+version: 1
+id: "trivago_auto"
+url: "room5.trivago.com"
+ui:
+  browser: "Chrome"
+  timeout: 15
+  remote:
+    browser: "Chrome"
+    browserVersion: "81.0"
+    platform: "Windows"
+    platformVersion: "8.1"
+    resolution: "1920x1080"

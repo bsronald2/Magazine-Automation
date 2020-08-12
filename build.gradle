@@ -1,0 +1,88 @@
+plugins {
+    id 'java'
+}
+
+group 'com.trivago.magazine'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+def versions = [cucumber : '4.8.1', selenium: '3.141.59',  log4j2 : '2.12.1']
+def featuresPath = 'src/test/resources/features'
+def cucumberArgs = ['--plugin', 'pretty', '--plugin', 'json:report_output/cucumber.json',
+                    '--monochrome', '--glue', 'com.auto.hooks']
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: "${versions.cucumber}"
+    testImplementation group: 'io.cucumber', name: 'cucumber-java8', version: "${versions.cucumber}"
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: "${versions.cucumber}"
+    compile group: 'org.yaml', name: 'snakeyaml', version: "${versions.snakeyml}"
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${versions.log4j2}"
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: "${versions.selenium}"
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+
+ext.setUpArgs = {
+    tags = (tags as String).toLowerCase()
+    print tags
+
+    cucumberArgs.addAll([
+            '--glue', 'com.trivago.magazine', "$featuresPath/ui",
+            '--tags', tags
+
+    ])
+
+    // Save Args into properties file
+    def file = new File(configPath)
+    if (file.exists())
+        file.delete()
+    file.createNewFile()
+
+    def propertyF = new Properties()
+    OutputStream output = new FileOutputStream(configPath)
+
+    propertyF.setProperty("TAGS", tags)
+
+    propertyF.store(output, null)
+    output.close()
+
+}
+
+task setupEnv() {
+    // Create Log directory if doesn't exist
+    File reportLogs = new File("logs/") // log files
+    if (!reportLogs.exists())
+        reportLogs.mkdir()
+
+    // Create report directory if doesn't exits
+    File reportTest = new File("report_output/") // report_json
+    if (!reportTest.exists())
+        reportTest.mkdir()
+    else
+        delete reportTest.listFiles()
+
+    setUpArgs()
+}
+
+task cucumber(dependsOn:setupEnv) {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = cucumberArgs
+        }
+    }
+}

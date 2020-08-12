@@ -1,0 +1,47 @@
+[
+  {
+    "line": 2,
+    "elements": [
+      {
+        "start_timestamp": "2020-08-12T14:56:41.223Z",
+        "line": 5,
+        "name": "Search",
+        "description": "",
+        "id": "testing-cucumber-ui-folder;search",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 6,
+            "name": "I search \u0027aaaaa\u0027",
+            "match": {},
+            "keyword": "Given "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui"
+          }
+        ]
+      }
+    ],
+    "name": "Testing Cucumber UI folder",
+    "description": "",
+    "id": "testing-cucumber-ui-folder",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/features/ui/test.feature",
+    "tags": [
+      {
+        "name": "@ui",
+        "type": "Tag",
+        "location": {
+          "line": 1,
+          "column": 1
+        }
+      }
+    ]
+  }
+]
