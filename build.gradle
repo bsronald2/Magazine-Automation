@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'idea'
 }
 
 group 'com.trivago.magazine'
@@ -11,13 +12,15 @@ repositories {
     mavenCentral()
 }
 
-def versions = [cucumber : '4.8.1', selenium: '3.141.59',  log4j2 : '2.12.1']
-def featuresPath = 'src/test/resources/features'
-def cucumberArgs = ['--plugin', 'pretty', '--plugin', 'json:report_output/cucumber.json',
-                    '--monochrome', '--glue', 'com.auto.hooks']
+def versions = [cucumber : '4.8.1', selenium: '3.141.59',  log4j2 : '2.12.1', snakeyml : '1.25']
 
+def cucumberArgs = ['--plugin', 'pretty', '--plugin', 'json:report_output/cucumber.json',
+                    '--monochrome', '--glue', 'com.trivago.magazine.hooks', '--glue', 'com.trivago.magazine.ui',
+                    "src/test/resources/features/ui", '--tags', tags]
 
 dependencies {
+    //we will use the Groovy version that ships with Gradle:
+    implementation localGroovy()
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: "${versions.cucumber}"
     testImplementation group: 'io.cucumber', name: 'cucumber-java8', version: "${versions.cucumber}"
@@ -25,6 +28,7 @@ dependencies {
     compile group: 'org.yaml', name: 'snakeyaml', version: "${versions.snakeyml}"
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${versions.log4j2}"
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: "${versions.selenium}"
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 }
 
 configurations {
@@ -36,13 +40,7 @@ configurations {
 
 ext.setUpArgs = {
     tags = (tags as String).toLowerCase()
-    print tags
-
-    cucumberArgs.addAll([
-            '--glue', 'com.trivago.magazine', "$featuresPath/ui",
-            '--tags', tags
-
-    ])
+    browser = (browser as String).toLowerCase()
 
     // Save Args into properties file
     def file = new File(configPath)
@@ -54,6 +52,7 @@ ext.setUpArgs = {
     OutputStream output = new FileOutputStream(configPath)
 
     propertyF.setProperty("TAGS", tags)
+    propertyF.setProperty("BROWSER", browser)
 
     propertyF.store(output, null)
     output.close()
