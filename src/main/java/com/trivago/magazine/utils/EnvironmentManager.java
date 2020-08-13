@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 
 public class EnvironmentManager {
 
-    private static EnvironmentManager environmentManager = null;
     private String pathEnv;
     private Object envInfo;
     private Class<?> aClass;

@@ -44,9 +44,6 @@ public final class EnvironmentChecker {
         } else if (SystemUtils.IS_OS_LINUX) {
             log.info("Environment Detected: LINUX Based");
             osName = "Linux";
-        } else if (SystemUtils.IS_OS_UNIX) {
-            log.info("Environment Detected: UNIX Based");
-            osName = "Unix";
         } else {
             log.info("Environment not supported");
             throw new RuntimeException("Environment not supported");
