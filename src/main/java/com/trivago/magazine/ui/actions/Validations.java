@@ -25,7 +25,6 @@ public class Validations {
         List<String> brokenLinks = new ArrayList<>();
         for (String link : links) {
             try {
-                System.out.println(link);
                 httpConnection = getHttpConnection(link.trim());
                 httpConnection.setRequestMethod("HEAD");
                 httpConnection.connect();

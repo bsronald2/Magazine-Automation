@@ -3,34 +3,337 @@
     "line": 2,
     "elements": [
       {
-        "start_timestamp": "2020-08-12T14:56:41.223Z",
-        "line": 5,
-        "name": "Search",
+        "start_timestamp": "2020-08-13T19:09:55.672Z",
+        "before": [
+          {
+            "result": {
+              "duration": 5046741418,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.setup()"
+            }
+          }
+        ],
+        "line": 13,
+        "name": ": Navigate to a destination through the menu on the top left",
         "description": "",
-        "id": "testing-cucumber-ui-folder;search",
+        "id": "automate-3-scenarios-for-trivago-magazine;:-navigate-to-a-destination-through-the-menu-on-the-top-left;;2",
+        "after": [
+          {
+            "result": {
+              "duration": 2354549171,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.navigateToHomePage()"
+            }
+          }
+        ],
         "type": "scenario",
-        "keyword": "Scenario",
+        "keyword": "Scenario Outline",
         "steps": [
           {
             "result": {
-              "status": "undefined"
+              "duration": 7212969599,
+              "status": "passed"
             },
-            "line": 6,
-            "name": "I search \u0027aaaaa\u0027",
-            "match": {},
-            "keyword": "Given "
+            "line": 9,
+            "name": "I navigate to destination \"Southwest\" through menu",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Southwest\"",
+                  "offset": 26
+                }
+              ],
+              "location": "UISteps.iNavigateToDestinationThroughMenu(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 55294828,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "I verify that the correct destination page is displayed",
+            "match": {
+              "location": "UISteps.iVerifyThatTheCorrectDestinationPageIsDisplayed()"
+            },
+            "keyword": "Then "
           }
         ],
         "tags": [
           {
             "name": "@ui"
+          },
+          {
+            "name": "@HomePage"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-08-13T19:10:10.356Z",
+        "before": [
+          {
+            "result": {
+              "duration": 6318479,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.setup()"
+            }
+          }
+        ],
+        "line": 14,
+        "name": ": Navigate to a destination through the menu on the top left",
+        "description": "",
+        "id": "automate-3-scenarios-for-trivago-magazine;:-navigate-to-a-destination-through-the-menu-on-the-top-left;;3",
+        "after": [
+          {
+            "result": {
+              "duration": 2021855065,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.navigateToHomePage()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 4090565006,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "I navigate to destination \"Northwest\" through menu",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Northwest\"",
+                  "offset": 26
+                }
+              ],
+              "location": "UISteps.iNavigateToDestinationThroughMenu(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 48657981,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "I verify that the correct destination page is displayed",
+            "match": {
+              "location": "UISteps.iVerifyThatTheCorrectDestinationPageIsDisplayed()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui"
+          },
+          {
+            "name": "@HomePage"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-08-13T19:10:16.530Z",
+        "before": [
+          {
+            "result": {
+              "duration": 1830780,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.setup()"
+            }
+          }
+        ],
+        "line": 17,
+        "name": "Fill in the contact form and send it",
+        "description": "",
+        "id": "automate-3-scenarios-for-trivago-magazine;fill-in-the-contact-form-and-send-it",
+        "after": [
+          {
+            "result": {
+              "duration": 119801972,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.closeChildWindows()"
+            }
+          },
+          {
+            "result": {
+              "duration": 2338357912,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.navigateToHomePage()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 442853532,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "I navigate to \"Contact\" page using footer link",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Contact\"",
+                  "offset": 14
+                }
+              ],
+              "location": "UISteps.iNavigateToPageUsingFooterLink(String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 4421164079,
+              "status": "passed"
+            },
+            "line": 19,
+            "name": "I fill out the contact form",
+            "match": {
+              "location": "UISteps.iFillOutTheContactForm(DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "",
+                  "message",
+                  "fullname",
+                  "email"
+                ]
+              },
+              {
+                "cells": [
+                  "ContactA",
+                  "I would like to..",
+                  "Tester User",
+                  "r.butron.projects@gmail.com"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 479621847,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "I submit the form",
+            "match": {
+              "location": "UISteps.iSendTheFormSuccessfully()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1563103749,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "The following message should be displayed \"Message Sent Successfully!\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Message Sent Successfully!\"",
+                  "offset": 42
+                }
+              ],
+              "location": "UISteps.theFollowingMessageShouldBeDisplayed(String)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui"
+          },
+          {
+            "name": "@CloseChildWindows"
+          },
+          {
+            "name": "@HomePage"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-08-13T19:10:25.899Z",
+        "before": [
+          {
+            "result": {
+              "duration": 1139571,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.setup()"
+            }
+          }
+        ],
+        "line": 26,
+        "name": "Verify that the links in homepage are working",
+        "description": "",
+        "id": "automate-3-scenarios-for-trivago-magazine;verify-that-the-links-in-homepage-are-working",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 49246742,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "I am in homepage",
+            "match": {
+              "location": "UISteps.iAmInHomepage()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: One or more links are not working.\n\tat org.junit.Assert.fail(Assert.java:88)\n\tat org.junit.Assert.assertTrue(Assert.java:41)\n\tat com.trivago.magazine.ui.steps.UISteps.iVerifyThatAllLinksAreWorking(UISteps.java:81)\n\tat ✽.I verify that all links are working(file:src/test/resources/features/ui/test.feature:28)\n",
+              "duration": 59432504397,
+              "status": "failed"
+            },
+            "line": 28,
+            "name": "I verify that all links are working",
+            "match": {
+              "location": "UISteps.iVerifyThatAllLinksAreWorking()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui"
+          },
+          {
+            "name": "@Home"
           }
         ]
       }
     ],
-    "name": "Testing Cucumber UI folder",
-    "description": "",
-    "id": "testing-cucumber-ui-folder",
+    "name": "Automate 3 scenarios for Trivago Magazine",
+    "description": "    Preconditions: All scenarios start on Trivago Home Magazine.\n    PostConditions: Refresh Browser and Navigate home page.",
+    "id": "automate-3-scenarios-for-trivago-magazine",
     "keyword": "Feature",
     "uri": "file:src/test/resources/features/ui/test.feature",
     "tags": [
