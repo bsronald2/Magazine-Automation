@@ -1,22 +1,38 @@
-plugins {
-    id 'java'
-    id 'idea'
-}
+import net.masterthought.cucumber.ReportBuilder
+import net.masterthought.cucumber.Configuration
+import net.masterthought.cucumber.json.support.Status
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
 
 group 'com.trivago.magazine'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+buildscript {
+    repositories {
+        mavenCentral()
+        dependencies {
+            classpath "net.masterthought:cucumber-reporting:5.3.0"
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
 
-def versions = [cucumber : '4.8.1', selenium: '3.141.59',  log4j2 : '2.12.1', snakeyml : '1.25']
+
+def versions = [cucumber : '4.8.1', selenium: '3.141.59',  log4j2 : '2.12.1', snakeyml : '1.25', jackson : '2.10.2']
 
 def cucumberArgs = ['--plugin', 'pretty', '--plugin', 'json:report_output/cucumber.json',
                     '--monochrome', '--glue', 'com.trivago.magazine.hooks', '--glue', 'com.trivago.magazine.ui',
                     "src/test/resources/features/ui", '--tags', tags]
+File reportTest
+
 
 dependencies {
     //we will use the Groovy version that ships with Gradle:
@@ -29,6 +45,7 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${versions.log4j2}"
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: "${versions.selenium}"
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
+    compile group: "com.fasterxml.jackson.dataformat", name: 'jackson-dataformat-xml', version: "${versions.jackson}"
 }
 
 configurations {
@@ -66,7 +83,7 @@ task setupEnv() {
         reportLogs.mkdir()
 
     // Create report directory if doesn't exits
-    File reportTest = new File("report_output/") // report_json
+    reportTest = new File("report_output/") // report_json
     if (!reportTest.exists())
         reportTest.mkdir()
     else
@@ -85,3 +102,27 @@ task cucumber(dependsOn:setupEnv) {
         }
     }
 }
+
+
+task generateReport {
+    doLast {
+        String buildNumber = "1"
+        String projectName = "Magazine Trivago Automation Report"
+
+        File[] files = new File("report_output/").listFiles({directory, name -> name ==~/.*.json/} as FilenameFilter)
+        List<String> cucumberJSONOutput = files.collect {it.getPath()}
+        Configuration configuration = new Configuration(reportTest, projectName)
+
+        //Configuration of the report
+        configuration.setNotFailingStatuses(Collections.singleton(Status.SKIPPED));
+        configuration.setBuildNumber(buildNumber)
+
+        //Report build
+        ReportBuilder reportBuilder = new ReportBuilder(cucumberJSONOutput, configuration)
+        reportBuilder.generateReports()
+
+    }
+}
+
+cucumber.finalizedBy generateReport
+
